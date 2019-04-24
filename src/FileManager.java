@@ -6,9 +6,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 
 
-public class FileManager {
+class FileManager {
 
-    public ArrayList<String> readFile(String fileName) throws IOException {
+    ArrayList<String> readFile(String fileName) throws IOException {
         File file = new File(fileName);
         ArrayList<String> list;
         try {
@@ -19,7 +19,7 @@ public class FileManager {
         return list;
     }
 
-    public void writeFile(ArrayList<String> allLines, String fileName) throws IOException {
+    void writeFile(ArrayList<String> allLines, String fileName) throws IOException {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (String s : allLines) {

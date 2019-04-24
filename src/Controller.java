@@ -1,12 +1,18 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Controller {
-    ConsoleWriter writer = new ConsoleWriter();
-    FileManager fileManager = new FileManager();
-    ContentWorker contentWorker = new ContentWorker();
+class Controller {
+    private ConsoleWriter writer;
+    private FileManager fileManager;
+    private ContentWorker contentWorker;
 
-    public void start(String[] params) {
+    Controller() {
+        writer = new ConsoleWriter();
+        fileManager = new FileManager();
+        contentWorker  = new ContentWorker();
+    }
+
+    void start(String[] params) {
         int len = params.length;
 
         if (len == 2) {

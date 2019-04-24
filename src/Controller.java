@@ -1,16 +1,15 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 class Controller {
     private ConsoleWriter writer;
     private FileManager fileManager;
-    private ContentWorker contentWorker;
+    private ContentManager contentManager;
 
     Controller() {
         writer = new ConsoleWriter();
         fileManager = new FileManager();
-        contentWorker  = new ContentWorker();
+        contentManager = new ContentManager();
     }
 
     void start(String[] params) {
@@ -33,7 +32,7 @@ class Controller {
     private void getCountOfEntries(String filePath, String search){
         try {
             ArrayList<String> lines = fileManager.readFile(filePath);
-            writer.printText("Line \" " + search + " \" was found " + contentWorker.getLineEntries(lines, search) + " times");
+            writer.printText("Line \" " + search + " \" was found " + contentManager.getLineEntries(lines, search) + " times");
         } catch (Exception e) {
             writer.printException(e);
         }
@@ -42,7 +41,7 @@ class Controller {
     private void changeLines(String filePath, String search, String replacement) {
         try {
             ArrayList<String> list = fileManager.readFile(filePath);
-            fileManager.writeFile(contentWorker.replaceLines(list, search, replacement), filePath);
+            fileManager.writeFile(contentManager.replaceLines(list, search, replacement), filePath);
         } catch (IOException e) {
             writer.printException(e);
         }

@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class ContentWorker {
+class ContentManager {
 
     int getLineEntries(List<String> list, String searchLine) {
         int counter = 0;

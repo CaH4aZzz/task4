@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -29,12 +30,12 @@ class Controller {
         }
     }
 
-    private void getCountOfEntries(String filePath, String search) {
+    private void getCountOfEntries(String filePath, String search){
         try {
             ArrayList<String> lines = fileManager.readFile(filePath);
-            writer.printText("Line \"" + search + "\" was found " + contentWorker.getLineEntries(lines, search) + " times");
-        } catch (IOException e) {
-            e.printStackTrace();
+            writer.printText("Line \" " + search + " \" was found " + contentWorker.getLineEntries(lines, search) + " times");
+        } catch (Exception e) {
+            writer.printException(e);
         }
     }
 

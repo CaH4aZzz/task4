@@ -3,18 +3,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 
 
 class FileManager {
 
-    ArrayList<String> readFile(String fileName) throws IOException {
+    ArrayList<String> readFile(String fileName) throws IOException{
         File file = new File(fileName);
         ArrayList<String> list;
         try {
             list = (ArrayList<String>) Files.readAllLines(file.toPath());
-        } catch (IOException e) {
-            throw new IOException("\nError! File " + fileName + " was not found");
+        }catch (InvalidPathException e){
+            throw new IllegalArgumentException("Error! File " + fileName + " was not found");
+        }catch (IOException e) {
+            throw new IOException("Error while reading from file");
         }
         return list;
     }

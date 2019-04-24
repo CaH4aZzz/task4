@@ -8,7 +8,7 @@ Our stern alarums changed to merry meetings,
 Now is the winter of our discontent
 Our dreadful marches to delightful measures.
 Grim-visaged war hath smooth'd his wrinkled front;
-And now, instead of mounting barded steeds
+And ++++++++, instead of mounting barded steeds
 To fright the souls of fearful adversaries,
 He capers nimbly in a lady's chamber
 To the lascivious pleasing of a lute.
@@ -18,3 +18,4 @@ I, that am rudely stamp'd, and want love's majesty
 Now is the winter of our discontent
 To strut before a wanton ambling nymph;
 I, that am curtail'd of this fair proportion,
+Now is the winter of our discontent

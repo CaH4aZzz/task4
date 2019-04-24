@@ -1,36 +1,33 @@
-import java.io.*;
-
-import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.extractor.WordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
 
 
 public class FReader {
 
-    ConsoleWriter writer = new ConsoleWriter();
-
-    public void readFile(String search) throws IOException {
-        String s;
-        int counter = 0;
+    public ArrayList<String> readFile(String fileName) throws IOException {
+        File file = new File(fileName);
+        ArrayList<String> list;
         try {
-            File file = new File("test.docx");
-            FileInputStream fis = new FileInputStream(file.getAbsolutePath());
-
-            HWPFDocument doc = new HWPFDocument(fis);
-
-            WordExtractor we = new WordExtractor(doc);
-
-            String[] paragraphs = we.getParagraphText();
-
-            System.out.println("Total no of paragraph "+ paragraphs.length);
-            for (String para : paragraphs) {
-                System.out.println(para.toString());
-            }
-            fis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            list = (ArrayList<String>) Files.readAllLines(file.toPath());
+        } catch (IOException e) {
+            throw new IOException("\nError! File " + fileName + " was not found");
         }
+        return list;
+    }
 
+    public void writeFile(ArrayList<String> allLines, String fileName) throws IOException {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))){
+            for (String s : allLines) {
+                s += System.getProperty("line.separator");
+                writer.write(s);
+            }
+        } catch (IOException e) {
+            throw new IOException("Error while writing to file " + fileName);
+        }
     }
 }

@@ -2,6 +2,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 class Controller {
+    private static final int LINE_COUNTER = 2;
+    private static final int LINE_REPLACEMENT = 3;
+
     private ConsoleWriter writer;
     private FileManager fileManager;
     private ContentManager contentManager;
@@ -15,11 +18,11 @@ class Controller {
     void start(String[] params) {
         int len = params.length;
 
-        if (len == 2) {
+        if (len == LINE_COUNTER) {
             String filePath = params[0];
             String search = params[1];
             getCountOfEntries(filePath, search);
-        } else if (len == 3) {
+        } else if (len == LINE_REPLACEMENT) {
             String filePath = params[0];
             String search = params[1];
             String replacement = params[2];

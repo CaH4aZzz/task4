@@ -1,21 +1,33 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class FileManager {
 
-    public int getLineEntries(List<String> list, String searchLine){
-        int counter = 0;
-        for (String s: list) {
-            if(s.equals(searchLine))counter++;
+    public ArrayList<String> readFile(String fileName) throws IOException {
+        File file = new File(fileName);
+        ArrayList<String> list;
+        try {
+            list = (ArrayList<String>) Files.readAllLines(file.toPath());
+        } catch (IOException e) {
+            throw new IOException("\nError! File " + fileName + " was not found");
         }
-        return counter;
+        return list;
     }
 
-    public ArrayList<String> replaceLines(ArrayList<String> lineList,String searchLine, String replaceLine){
-        ArrayList<String> resultList = new ArrayList<>();
-        for (String s: lineList) {
-            resultList.add(s.replace(searchLine, replaceLine));
+    public void writeFile(ArrayList<String> allLines, String fileName) throws IOException {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (String s : allLines) {
+                s += System.getProperty("line.separator");
+                writer.write(s);
+            }
+        } catch (IOException e) {
+            throw new IOException("Error while writing to file " + fileName);
         }
-        return resultList;
     }
 }

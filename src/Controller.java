@@ -2,20 +2,42 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Controller {
+    ConsoleWriter writer = new ConsoleWriter();
+    FileManager fileManager = new FileManager();
+    ContentWorker contentWorker = new ContentWorker();
 
+    public void start(String[] params) {
+        int len = params.length;
 
-    public void start() {
-        ConsoleWriter writer = new ConsoleWriter();
-        FReader fReader = new FReader();
-        FileManager fileManager = new FileManager();
-
-        ArrayList<String> list;
-        try {
-            list = fReader.readFile("test.txt");
-            fReader.writeFile(fileManager.replaceLines(list, "________", "++++++++"), "test.txt");
-        } catch (IOException e) {
-            writer.print(e);
+        if (len == 2) {
+            String filePath = params[0];
+            String search = params[1];
+            getCountOfEntries(filePath, search);
+        } else if (len == 3) {
+            String filePath = params[0];
+            String search = params[1];
+            String replacement = params[2];
+            changeLines(filePath, search, replacement);
+        } else {
+            writer.printInstruction();
         }
     }
 
+    private void getCountOfEntries(String filePath, String search) {
+        try {
+            ArrayList<String> lines = fileManager.readFile(filePath);
+            writer.printText("Line \"" + search + "\" was found " + contentWorker.getLineEntries(lines, search) + " times");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void changeLines(String filePath, String search, String replacement) {
+        try {
+            ArrayList<String> list = fileManager.readFile(filePath);
+            fileManager.writeFile(contentWorker.replaceLines(list, search, replacement), filePath);
+        } catch (IOException e) {
+            writer.printException(e);
+        }
+    }
 }
